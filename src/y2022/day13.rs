@@ -8,6 +8,32 @@ pub fn find_score_correctly_ordered<T: Read>(input: T) -> usize {
     sum
 }
 
+pub fn get_decoder_key<T: Read>(input: T) -> usize {
+    let packets = parse_input(input);
+    let mut packets = packets.iter()
+        .flat_map(|(p1, p2)| [p1, p2])
+        .collect::<Vec<&Packet>>();
+
+    //add [[2]] and [[6]] markers
+    let inner = Packet::List(vec![Packet::Num(2)]);
+    let start_divider = Packet::List(vec![inner]);
+    packets.push(&start_divider);
+    let inner = Packet::List(vec![Packet::Num(6)]);
+    let end_divider = Packet::List(vec![inner]);
+    packets.push(&end_divider);
+
+    packets.sort();
+
+    let mut decoder_key = 1;
+    for (index, &packet) in packets.iter().enumerate() {
+        if packet.eq(&start_divider) || packet.eq(&end_divider) {
+            decoder_key *= index + 1;
+        }
+    }
+    println!("Decoder key: {}", decoder_key);
+    decoder_key
+}
+
 fn find_correct_order<T: Read>(input: T) -> Vec<usize> {
     let packets = parse_input(input);
     let mut in_order = Vec::new();
@@ -213,4 +239,35 @@ fn test_2() {
     let result = find_score_correctly_ordered(input.as_bytes());
 
     assert_eq!(result, 1);
+}
+
+#[test]
+fn test_part_2() {
+    let input = "[1,1,3,1,1]
+[1,1,5,1,1]
+
+[[1],[2,3,4]]
+[[1],4]
+
+[9]
+[[8,7,6]]
+
+[[4,4],4,4]
+[[4,4],4,4,4]
+
+[7,7,7,7]
+[7,7,7]
+
+[]
+[3]
+
+[[[]]]
+[[]]
+
+[1,[2,[3,[4,[5,6,7]]]],8,9]
+[1,[2,[3,[4,[5,6,0]]]],8,9]";
+
+    let result = get_decoder_key(input.as_bytes());
+
+    assert_eq!(result, 140);
 }

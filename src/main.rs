@@ -43,5 +43,6 @@ fn main() {
     //day11::find_busy_monkeys(File::open("day11.txt").unwrap(), 10000, 1); //doesn't work
     //day12::find_shortest_from_start(File::open("day12.txt").unwrap());
     //day12::find_any_shortest(File::open("day12.txt").unwrap());
-    day13::find_score_correctly_ordered(File::open("day13.txt").unwrap());
+    //day13::find_score_correctly_ordered(File::open("day13.txt").unwrap());
+    day13::get_decoder_key(File::open("day13.txt").unwrap());
 }
