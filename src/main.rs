@@ -5,6 +5,7 @@ use y2022::day10::render_crt;
 use y2022::day11;
 use y2022::day12;
 use y2022::day13;
+use y2022::day14;
 use y2022::day5::day5::Scenario;
 
 use crate::y2022::day1;
@@ -44,5 +45,7 @@ fn main() {
     //day12::find_shortest_from_start(File::open("day12.txt").unwrap());
     //day12::find_any_shortest(File::open("day12.txt").unwrap());
     //day13::find_score_correctly_ordered(File::open("day13.txt").unwrap());
-    day13::get_decoder_key(File::open("day13.txt").unwrap());
+    //day13::get_decoder_key(File::open("day13.txt").unwrap());
+    //day14::drop_all_sand(File::open("day14.txt").unwrap());
+    day14::drop_all_sand_to_floor(File::open("day14.txt").unwrap());
 }
